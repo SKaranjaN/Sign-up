@@ -14,6 +14,12 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    @validates('email')
+    def validate_email(self, key, email):
+        if not re.search(r'^[^@]+@[^@]+\.[^@]+$', email):
+            raise ValueError('Invalid email address.')
+        return email
+
     @validates('password')
     def validate_password(self, key, password):
         if not re.search(r'^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z])', password):
