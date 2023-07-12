@@ -1,9 +1,10 @@
 from app import db
 from sqlalchemy.orm import validates
+from sqlalchemy_serializer import SerializerMixin
 import re
 
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)

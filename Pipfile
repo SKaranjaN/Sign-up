@@ -11,6 +11,7 @@ flask-migrate = "*"
 sqlalchemy = "*"
 "sqlalchemy.orm" = "*"
 faker = "*"
+sqlalchemy-serializer = "*"
 
 [dev-packages]
 
