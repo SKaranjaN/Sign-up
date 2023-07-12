@@ -14,7 +14,7 @@ from models import User
 
 
 migrate = Migrate(app, db)
-db.init_app(app)
+
 
 
 api = Api(app)
