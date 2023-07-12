@@ -10,6 +10,7 @@ flask-restful = "*"
 flask-migrate = "*"
 sqlalchemy = "*"
 "sqlalchemy.orm" = "*"
+faker = "*"
 
 [dev-packages]
 
