@@ -68,6 +68,29 @@ class Users(Resource):
             return response
 api.add_resource(Users, "/users")
 
+class Login(Resource):
+    def post(self):
+        try:
+            email = request.json.get('email')
+            password = request.json.get('password')
+
+            user = User.query.filter_by(email=email).first()
+
+            if user and user.password == password:
+                response_dict = {"token": "your_token_here"}
+                response = make_response(response_dict, 200)
+            else:
+                response = make_response('Invalid email or password', 401)
+
+            return response
+
+        except Exception as e:
+            response = make_response(str(e), 500)
+            return response
+
+
+api.add_resource(Login, "/users/login")
+
 class User_by_Id(Resource):
 
     def get(self, id):
