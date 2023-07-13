@@ -44,28 +44,31 @@ class Users(Resource):
     
     def post(self):
         try:
+            data = request.get_json()
+
             new_user = User(
-                first_name=request.form['first_name'],
-                last_name=request.form['last_name'],
-                email=request.form['email'],
-                password=request.form['password']
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                email=data['email'],
+                password=data['password']
             )
+
             db.session.add(new_user)
             db.session.commit()
 
             response_dict = new_user.to_dict()
-            response = make_response(response_dict, 201)
+            response = make_response(jsonify(response_dict), 201)
             return response
 
         except IntegrityError:
             db.session.rollback()
-            response = make_response('Email already exists', 409)  # 409: Conflict
+            response = make_response('Email already exists', 409)
             return response
 
         except Exception as e:
             db.session.rollback()
-            response = make_response(str(e), 500)  # 500: Internal Server Error
-            return response
+            response = make_response(str(e), 500)
+            return response  
 api.add_resource(Users, "/users")
 
 class Login(Resource):
