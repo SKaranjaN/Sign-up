@@ -13,6 +13,9 @@ function Login() {
         <label>Password</label>
         <input type="password" />
         <br />
+        <button>Login</button>
+        <br />
+        <br />
         <a href="/sign-up">Sign up</a>
         <br />
         <a href="/forgot-password">Forgot Password</a>
