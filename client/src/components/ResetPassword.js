@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ResetPassword.css';
 
 function ResetPassword() {
@@ -18,7 +19,7 @@ function ResetPassword() {
         <br />
         <button>Change Password</button>
         <br />
-        <a href="/forgot-password">Forgot Password</a>
+        <Link to="/login">Login</Link>
       </div>
     </div>
   );
