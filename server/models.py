@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
+
 import re
 
 
@@ -19,6 +20,11 @@ class User(db.Model, SerializerMixin):
     def validate_email(self, key, email):
         if not re.search(r'^[^@]+@[^@]+\.[^@]+$', email):
             raise ValueError('Invalid email address.')
+
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            raise ValueError('Email already exists.')
+
         return email
 
     @validates('password')

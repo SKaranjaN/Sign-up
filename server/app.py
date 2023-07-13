@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from config import Config
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -44,19 +45,29 @@ class Users(Resource):
         return response
     
     def post(self):
-        new_user = User(
-            first_name = request.form['first_name'],
-            last_name = request.form['last_name'],
-            email = request.form['email'],
-            password = request.form['password']
-        )
-        db.session.add(new_user)
-        db.session.commit()
+        try:
+            new_user = User(
+                first_name=request.form['first_name'],
+                last_name=request.form['last_name'],
+                email=request.form['email'],
+                password=request.form['password']
+            )
+            db.session.add(new_user)
+            db.session.commit()
 
-        response_dict = new_user.to_dict()
-        response = make_response(response_dict, 201)
+            response_dict = new_user.to_dict()
+            response = make_response(response_dict, 201)
+            return response
 
-        return response
+        except IntegrityError:
+            db.session.rollback()
+            response = make_response('Email already exists', 409)  # 409: Conflict
+            return response
+
+        except Exception as e:
+            db.session.rollback()
+            response = make_response(str(e), 500)  # 500: Internal Server Error
+            return response
 api.add_resource(Users, "/users")
 
 class User_by_Id(Resource):
