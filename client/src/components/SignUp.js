@@ -1,33 +1,37 @@
-import React from 'react'
+import React from 'react';
+import './SignUp.css';
 
 function SignUp() {
-    return (
-        <div>
-            <form>
-                <label>First name  </label>
-                <input></input>
-                <br />
-                <br />
-                <label>Last name   </label>
-                <input></input>
-                <br />
-                <br />
-                <label>Email     </label>
-                <input></input>
-                <br />
-                <br />
-                <label>Password  </label>
-                <input></input>
-                <br />
-                <br />
-                <label>Confirm Password  </label>
-                <input></input>
-                <br />
-                <br />
-                <button>Sign Up</button>
-            </form>
-        </div>
-    )
+  return (
+    <div className="login-container">
+      <div className="login-form">
+        <h1>Create an Account</h1>
+        <form>
+          <label>First name</label>
+          <input type="text" />
+          <br />
+          <br />
+          <label>Last name</label>
+          <input type="text" />
+          <br />
+          <br />
+          <label>Email</label>
+          <input type="email" />
+          <br />
+          <br />
+          <label>Password</label>
+          <input type="password" />
+          <br />
+          <br />
+          <label>Confirm Password</label>
+          <input type="password" />
+          <br />
+          <br />
+          <button>Sign Up</button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default SignUp;
