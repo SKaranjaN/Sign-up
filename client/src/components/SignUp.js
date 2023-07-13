@@ -28,6 +28,8 @@ function SignUp() {
           <br />
           <br />
           <button>Sign Up</button>
+          <br />
+          <a href="/login">Login</a>
         </form>
       </div>
     </div>

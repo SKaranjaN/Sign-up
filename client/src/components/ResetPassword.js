@@ -17,6 +17,8 @@ function ResetPassword() {
         <input type="password" />
         <br />
         <button>Change Password</button>
+        <br />
+        <a href="/forgot-password">Forgot Password</a>
       </div>
     </div>
   );
