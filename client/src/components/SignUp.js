@@ -33,12 +33,14 @@ function SignUp() {
         body: JSON.stringify(user),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         window.location.href = '/login';
       } else if (response.status === 409) {
-        setError('Email already exists');
+        setError(data.message || 'Email already exists');
       } else {
-        setError('Email already exists');
+        setError(data.message || 'Signup request failed');
       }
     } catch (error) {
       console.error('Error occurred during signup:', error);
