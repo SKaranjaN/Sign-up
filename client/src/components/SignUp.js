@@ -2,7 +2,7 @@ import React from 'react'
 
 function SignUp() {
     return (
-        <diV>
+        <div>
             <form>
                 <label>First name  </label>
                 <input></input>
@@ -26,7 +26,7 @@ function SignUp() {
                 <br />
                 <button>Sign Up</button>
             </form>
-        </diV>
+        </div>
     )
 }
 
