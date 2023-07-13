@@ -2,23 +2,21 @@ from flask import Flask, jsonify, make_response, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from config import Config
 from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import User  
-
-
-migrate = Migrate(app, db)
-
-
+from models import User
 
 api = Api(app)
+
 
 class Index(Resource):
 
