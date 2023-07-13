@@ -12,25 +12,23 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/users');
-      if (response.ok) {
-        const users = await response.json();
-        const user = users.find((user) => user.email === email);
+      const response = await fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        if (user) {
-          if (user.password === password) {
-            navigate('/dashboard'); 
-          } else {
-            setError('Invalid email or password');
-          }
-        } else {
-          setError('User not found');
-        }
+      if (response.ok) {
+        navigate('/dashboard');
+      } else if (response.status === 401) {
+        setError('Invalid email or password');
       } else {
-        setError('Error fetching user data');
+        setError('Error logging in');
       }
     } catch (error) {
-      setError('Error fetching user data');
+      setError('Error logging in');
     }
   };
 
