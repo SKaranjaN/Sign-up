@@ -7,9 +7,15 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
 
     const user = {
       first_name: firstName,
@@ -29,8 +35,10 @@ function SignUp() {
 
       if (response.ok) {
         window.location.href = '/login';
+      } else if (response.status === 409) {
+        setError('Email already exists');
       } else {
-        console.error('Signup request failed.');
+        setError('Email already exists');
       }
     } catch (error) {
       console.error('Error occurred during signup:', error);
@@ -41,6 +49,7 @@ function SignUp() {
     <div className="login-container">
       <div className="login-form">
         <h1>Create an Account</h1>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <label>First name</label>
           <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
